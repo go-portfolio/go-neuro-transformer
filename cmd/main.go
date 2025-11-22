@@ -5,21 +5,10 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/go-portfolio/go-neuro-transformer/internal/attention"
-	"github.com/go-portfolio/go-neuro-transformer/internal/layers"
 	"github.com/go-portfolio/go-neuro-transformer/internal/matrix"
+	"github.com/go-portfolio/go-neuro-transformer/internal/transformer"
 )
 
-// Трансформер
-func Transformer(Q, K, V, W1, W2 matrix.Matrix, b1, b2 []float64) matrix.Matrix {
-	// Применяем механизм внимания
-	attentionOutput := attention.Attention(Q, K, V)
-
-	// Применяем полносвязный слой
-	output := layers.FeedForward(attentionOutput, W1, W2, b1, b2)
-
-	return output
-}
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
@@ -35,7 +24,7 @@ func main() {
 	b2 := []float64{0.1, 0.1}
 
 	// Получаем результат
-	result := Transformer(Q, K, V, W1, W2, b1, b2)
+	result := transformer.Transformer(Q, K, V, W1, W2, b1, b2)
 
 	// Печатаем результат
 	fmt.Println("Финальный вывод:", result)
